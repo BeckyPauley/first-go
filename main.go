@@ -1,22 +1,25 @@
 package main
 
 import (
+	"flag"
+
 	"fmt"
 
 	"github.com/alexellis/hmac"
 )
 
 func main() {
-	input := []byte(`input message from API`)
-	secret := []byte(`so secret`)
-	digest := hmac.Sign(input, secret)
+
+	var inputVar string
+	var secretVar string
+
+	// Bind flags to variables, then parse
+	flag.StringVar(&inputVar, "message", "", "message to create digest from")
+	flag.StringVar(&secretVar, "secret", "", "secret for the digest")
+	flag.Parse()
+
+	fmt.Printf("Computing hash for: %q\nSecret: %q\n", inputVar, secretVar)
+
+	digest := hmac.Sign([]byte(inputVar), []byte(secretVar))
 	fmt.Printf("Digest: %x\n", digest)
-
-	err := hmac.Validate(input, fmt.Sprintf("sha1=%x", digest), string(secret))
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Digest validated.\n")
-
 }
