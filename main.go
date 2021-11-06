@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
-	"os"
+
+	"github.com/alexellis/hmac"
 )
 
 func main() {
-	name := os.Getenv("USER")
-	fmt.Printf("Well done %s for having your first Go\n", name)
+	input := []byte(`input message from API`)
+	secret := []byte(`so secret`)
+	digest := hmac.Sign(input, secret)
+	fmt.Printf("Digest: %x\n", digest)
 }
