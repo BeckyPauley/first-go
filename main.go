@@ -18,6 +18,10 @@ func main() {
 	flag.StringVar(&secretVar, "secret", "", "secret for the digest")
 	flag.Parse()
 
+	if len(secretVar) == 0 {
+		panic("--secret is required")
+	}
+
 	fmt.Printf("Computing hash for: %q\nSecret: %q\n", inputVar, secretVar)
 
 	digest := hmac.Sign([]byte(inputVar), []byte(secretVar))
