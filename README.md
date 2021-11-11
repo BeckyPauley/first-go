@@ -19,6 +19,15 @@ Would result in: </br>
 
 - `%q` adds quotes around string.
 
+- By default, `go build` builds for the current system OS/CPU architecture. Can use Go cross-compliation to compile binary for a different system, for most common OS: </br>
+*Intel*:</br>
+`GOOS=[CPU architecure] go build -o [filename, plus extension if required]`</br>
+e.g. `GOOS=windows go build -o first-go.exe`</br>
+*ARM* (additions to start and end of command):</br>
+e.g. `GOARCH=arm GOOS=linux go build -o first-go-arm64`</br>
+*To debug:*</br>
+Run `file [filename]`
+
 ### Come back to: 
 
 - How to use `hmac.Validate()` (`--generate` or `--validate` flag modes)
